@@ -1,0 +1,13 @@
+.news--item {
+  &__left {
+    text-align: center;
+    img {
+      width: 80%;
+    }
+  }
+  &__right {
+    p {
+      margin-bottom: 5px;
+    }
+  }
+}
