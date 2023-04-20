@@ -4,17 +4,14 @@ import { Link, NavLink } from 'react-router-dom'
 import logo from '../images/logo.png'
 import bg from '../images/bg.png'
 
-function getNavLinkClassName({ isActive }: { isActive: boolean }) {
-  return `nav-link ${isActive ? 'active' : ''}`
-}
-
-export default function Navigation() {
+const Navigation = () => {
   return (
     <Navbar
       bg="light"
       expand="lg"
       className="mb-4"
       style={{ background: `url(${bg})` }}
+      data-testid="navbar"
     >
       <Container>
         <Link to="/" className="navbar-brand me-5" style={{ width: '150px' }}>
@@ -25,3 +22,5 @@ export default function Navigation() {
     </Navbar>
   )
 }
+
+export default Navigation

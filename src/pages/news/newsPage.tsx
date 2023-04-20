@@ -4,16 +4,22 @@ import NewsItem from '../../components/newsItem/newsItem'
 import Spinner from 'react-bootstrap/Spinner'
 import PaginationComponent from '../../components/pagination/pagination'
 
+import './style.scss'
+
 const NewsPage: React.FC = () => {
   const [news, setNews] = useState<any>()
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('./capi.json')
-      const data = await res.json()
-      setNews(data)
+      try {
+        const res = await fetch('./capi.json')
+        const data = await res.json()
+        setNews(data)
+      } catch (e) {
+        console.log(e)
+      }
     }
     fetchData()
   }, [])
@@ -25,9 +31,12 @@ const NewsPage: React.FC = () => {
     setCurrentPage(pageNumber)
   }
 
+  const loaded = !!news?.results?.length
+
   return (
-    <>
-      {news ? (
+    <div className="news--page">
+      <h3>News List</h3>
+      {loaded ? (
         currentItems.map((item: any) => {
           const newsItem: NewsItemType = {
             headline: item.headline.default,
@@ -37,17 +46,25 @@ const NewsPage: React.FC = () => {
               item.references[item.related.thumbnail.default[0]].link.media,
             link: item.link.canonical,
           }
-          return <NewsItem key={item.id} newItem={newsItem} />
+          return (
+            <NewsItem
+              key={item.id}
+              newItem={newsItem}
+              data-testid={`news-${item.id}`}
+            />
+          )
         })
       ) : (
         <Spinner animation="border" variant="warning" />
       )}
-      <PaginationComponent
-        itemsPerPage={itemsPerPage}
-        totalItems={news?.results?.length}
-        paginate={paginate}
-      />
-    </>
+      {loaded ? (
+        <PaginationComponent
+          itemsPerPage={itemsPerPage}
+          totalItems={news?.results?.length}
+          paginate={paginate}
+        />
+      ) : null}
+    </div>
   )
 }
 
