@@ -12,7 +12,7 @@ interface NewsItemProps {
 
 const NewsItem: React.FC<NewsItemProps> = props => {
   const { newItem } = props
-  console.log('newItem', newItem)
+
   return (
     <Row className="news--item">
       <Col xs="12" md="2" className="mb-3 news--item__left">
