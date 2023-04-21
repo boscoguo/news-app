@@ -19,7 +19,7 @@ const NewsItem: React.FC<NewsItemProps> = props => {
         <Image fluid rounded src={newItem.thumbnail} alt={newItem.headline} />
       </Col>
       <Col xs="12" md="10" className="mb-3 news--item__right">
-        <h2 className="h6">{newItem.headline}</h2>
+        <h2 className="h5">{newItem.headline}</h2>
         <RawHTML rawContent={newItem.standFirst} />
         <p>{formatDate(newItem.date, 'YYYY-MM-DD, h:mm:ss a')}</p>
         <p>{newItem.link}</p>
